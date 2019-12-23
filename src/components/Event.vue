@@ -90,54 +90,169 @@
               </el-row>
             </div>
           </el-card>
-
           <el-card
             class="box-card"
-            v-for="i in 4"
-            :key="i"
+            v-for="(i, k) in comment"
+            :key="k"
+            :body-style="{ padding: '0px' }"
             style="margin-top:20px"
           >
-            <div>
+            <div
+              style="padding-top:20px;padding-left:20px;padding-right:20px;padding-bottom:5px"
+            >
               <el-row>
                 <el-col :span="3">
                   <el-avatar
-                    size="large"
+                    :size="50"
+                    fit="fill"
                     src="http://melon-site.oss-cn-beijing.aliyuncs.com/avatar/6e22e32d73e05b81f6127c559604a6db.jpg"
                   ></el-avatar>
                 </el-col>
                 <el-col :span="20">
-                  <p
-                    style="margin:0px;text-align:left;font-size: 14px;font-weight: 700;"
+                  <div
+                    style="margin:0px;text-align:left;font-size: 14px;font-weight: 700;margin-bottom:7px"
                   >
-                    dsada
-                  </p>
+                    {{ i.name }}
+                  </div>
+                  <div
+                    style="margin:0px;padding:0px;margin-bottom:3px;text-align:left;font-size: 12px;color: #808080;letter-spacing: normal;word-spacing: normal;"
+                  >
+                    12月13日 07:39 来自 iPhone客户端
+                  </div>
                   <p
                     style="margin:0px;text-align:left;font-size: 14px;line-height: 25px;word-break: break-word;"
                   >
-                    这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文
-                    这是正文这是正文这是正文这是正文这是正文这是正文这是正文这是正文
+                    {{ i.content }}
                   </p>
-                  <div style="margin:0px;text-align:left;">
-                    <el-row>
-                      <el-col :span="6">1</el-col>
-                      <el-col :span="6">2</el-col>
-                      <el-col :span="6">3</el-col>
-                      <el-col :span="6">4</el-col>
-                    </el-row>
-                  </div>
-                  <div style="margin:0px;text-align:left;">
-                    <el-row>
-                      <el-col :span="6">1</el-col>
-                      <el-col :span="6">2</el-col>
-                      <el-col :span="6">3</el-col>
-                      <el-col :span="6">4</el-col>
-                    </el-row>
-                  </div>
                 </el-col>
               </el-row>
             </div>
+            <div
+              style="margin:0px;text-align:left;border-top: 1px solid #ccc!important;border-color: #f2f2f5;"
+            >
+              <el-row style="text-align:center;line-height:32px;height:32px;">
+                <el-col :span="6">
+                  <el-link>
+                    <span class="el-icon-chat-dot-round" style="font-size:16px">
+                    </span>
+                    <span style="font-size:12px;margin-left:2px">评论</span>
+                  </el-link>
+                </el-col>
+                <el-col :span="6">
+                  <el-link>
+                    <span class="el-icon-chat-dot-round" style="font-size:16px">
+                    </span>
+                    <span style="font-size:12px;margin-left:2px">评论</span>
+                  </el-link>
+                </el-col>
+                <el-col :span="6">
+                  <el-link @click="changeActive(k)">
+                    <span class="el-icon-chat-dot-round" style="font-size:16px">
+                    </span>
+                    <span style="font-size:12px;margin-left:2px">评论</span>
+                  </el-link>
+                </el-col>
+                <el-col :span="6">
+                  <el-link>
+                    <span class="el-icon-chat-dot-round" style="font-size:16px">
+                    </span>
+                    <span style="font-size:12px;margin-left:2px">评论</span>
+                  </el-link>
+                </el-col>
+              </el-row>
+            </div>
+
+            <div
+              v-show="activeCardIndex == k"
+              style="background-color: #f2f2f5;padding-top:30px;padding-bottom:10px"
+            >
+              <div
+                style="padding-bottom:10px;border-bottom-width:1px;border-bottom-style:solid;border-color:#d9d9d9"
+              >
+                <el-row style="height:40px;line-height:40px">
+                  <el-col :span="2" :offset="1">
+                    <el-avatar
+                      size="medium"
+                      src="http://melon-site.oss-cn-beijing.aliyuncs.com/avatar/6e22e32d73e05b81f6127c559604a6db.jpg"
+                    >
+                    </el-avatar>
+                  </el-col>
+                  <el-col :span="20">
+                    <div>
+                      <el-input
+                        v-model="input"
+                        size="mini"
+                        placeholder="请输入内容"
+                      >
+                      </el-input>
+                    </div>
+                  </el-col>
+                </el-row>
+                <el-row style="height:30px;line-height:30px">
+                  <el-col :span="17" :offset="3" style="text-align:left">
+                    <el-checkbox v-model="checked">转发</el-checkbox>
+                  </el-col>
+                  <el-col :span="3">
+                    <el-button type="warning" size="mini" @click="addComment(k)"
+                      >评论</el-button
+                    >
+                  </el-col>
+                </el-row>
+              </div>
+
+              <div>
+                <div
+                  v-for="(innerItem, idx) in i.innerComment"
+                  :key="idx"
+                  style="padding-bottom:5px;padding-top:10px;font-size:12px;border-bottom-width: 1px !important;border-bottom-style: solid !important;border-color: #d9d9d9;"
+                >
+                  <el-row>
+                    <el-col
+                      :span="2"
+                      :offset="1"
+                      style="height:40px;line-height:40px"
+                    >
+                      <el-avatar
+                        size="medium"
+                        src="http://melon-site.oss-cn-beijing.aliyuncs.com/avatar/6e22e32d73e05b81f6127c559604a6db.jpg"
+                      >
+                      </el-avatar>
+                    </el-col>
+                    <el-col :span="20">
+                      <div style="text-align:left;line-height:23px;">
+                        <span style="color: #ee6583;">{{ innerItem.name }}</span
+                        >:
+                        <span style="font-size:12px">{{
+                          innerItem.content
+                        }}</span>
+                      </div>
+                      <div
+                        style="color: #808080;text-align:left;line-height:23px;"
+                      >
+                        <span>12月18日 08:29</span>
+
+                        <el-link
+                          :underline="false"
+                          style="font-size:12px;line-height:23px;float:right;"
+                        >
+                          赞
+                        </el-link>
+
+                        <el-link
+                          :underline="false"
+                          style="font-size:12px;line-height:23px;float:right;margin-right:10px"
+                        >
+                          回复
+                        </el-link>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </div>
+            </div>
           </el-card>
         </el-col>
+
         <el-col :span="8" :offset="1">
           <el-card
             class="box-card myCardHeader"
@@ -179,7 +294,49 @@
 export default {
   data() {
     return {
-      textarea2: ''
+      activeCardIndex: -1,
+      textarea2: '',
+      input: '',
+      checked: false,
+      comment: [
+        {
+          name: 'monster1',
+          content: 'hello1',
+          innerComment: [
+            {
+              name: 'innerMonster',
+              content: 'innerContent'
+            }
+          ]
+        },
+        {
+          name: 'monster2',
+          content: 'hello2',
+          innerComment: []
+        },
+        {
+          name: 'monster3',
+          content: 'hello3',
+          innerComment: []
+        }
+      ]
+    }
+  },
+  methods: {
+    changeActive(index) {
+      if (this.activeCardIndex == index) {
+        this.activeCardIndex = -1
+        return
+      }
+      this.activeCardIndex = index
+    },
+    addComment(ids) {
+      if (this.comment[ids])
+        this.comment[ids].innerComment.push({
+          name: 'temp',
+          content: this.input
+        })
+      this.input = ''
     }
   }
 }
