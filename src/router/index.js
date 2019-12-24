@@ -6,6 +6,11 @@ import Login from '@/components/Login.vue'
 import Latest from '@/components/Latest.vue'
 import Event from '@/components/Event.vue'
 import Personal from '@/components/Personal.vue'
+import PersonalFollow from '@/components/PersonalFollow.vue'
+import PersonalFans from '@/components/PersonalFans.vue'
+
+import PersonalNews from '@/components/PersonalNews.vue'
+
 
 
 Vue.use(Router)  //Vue全局使用Router
@@ -33,8 +38,24 @@ export default new Router({
     },
     {
       path: '/user',
+      redirect: '/user/all',
       name: 'user',
-      component: Personal
+      component: Personal,
+      children: [
+        {
+          path: '/user/follow',
+          component: PersonalFollow
+        },
+        {
+          path: '/user/fans',
+          component: PersonalFans
+        },
+        {
+          path: '/user/all',
+          component: PersonalNews
+        }
+
+      ]
     },
 
   ],

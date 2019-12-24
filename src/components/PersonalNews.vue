@@ -160,6 +160,9 @@
 export default {
   data() {
     return {
+      activeCardIndex: -1,
+      input: '',
+      checked: false,
       news: [
         {
           name: 'monster2222',
@@ -170,8 +173,22 @@ export default {
               content: 'x2'
             }
           ]
+        },
+        {
+          name: 'monster2222',
+          content: 'ssxw',
+          innerComment: []
         }
       ]
+    }
+  },
+  methods: {
+    changeActive(index) {
+      if (this.activeCardIndex == index) {
+        this.activeCardIndex = -1
+        return
+      }
+      this.activeCardIndex = index
     }
   }
 }

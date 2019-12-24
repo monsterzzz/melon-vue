@@ -31,16 +31,22 @@
             <el-card class="box-card" :body-style="asideCardStyle">
               <el-row class="asideCard">
                 <el-col :span="8">
-                  <p>11</p>
-                  <span>关注</span>
+                  <el-link @click="goFollow()">
+                    <p>11</p>
+                    <span>关注</span>
+                  </el-link>
                 </el-col>
                 <el-col :span="8">
-                  <p>11</p>
-                  <span>粉丝</span>
+                  <el-link @click="goFans()">
+                    <p>11</p>
+                    <span>粉丝</span>
+                  </el-link>
                 </el-col>
                 <el-col :span="8">
-                  <p>11</p>
-                  <span>微博</span>
+                  <el-link @click="allNews()">
+                    <p>11</p>
+                    <span>微博</span>
+                  </el-link>
                 </el-col>
               </el-row>
             </el-card>
@@ -67,7 +73,9 @@
               </p>
             </el-card>
           </el-col>
-          <el-col :span="17"> </el-col>
+          <el-col :span="17">
+            <router-view></router-view>
+          </el-col>
         </el-row>
       </el-col>
     </el-row>
@@ -126,6 +134,17 @@ export default {
         'padding-left': '20px',
         'padding-right': '20px'
       }
+    }
+  },
+  methods: {
+    goFollow() {
+      this.$router.push('/user/follow')
+    },
+    goFans() {
+      this.$router.push('/user/fans')
+    },
+    allNews() {
+      this.$router.push('/user/all')
     }
   }
 }
