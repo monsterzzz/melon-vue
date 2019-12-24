@@ -83,6 +83,7 @@
                         size="mini"
                         icon="el-icon-message"
                         circle
+                        @click="addNews(ids)"
                       ></el-button>
                     </el-col>
                   </el-row>
@@ -294,7 +295,7 @@
 export default {
   data() {
     return {
-      activeCardIndex: -1,
+      activeCardIndex: -2,
       textarea2: '',
       input: '',
       checked: false,
@@ -337,6 +338,14 @@ export default {
           content: this.input
         })
       this.input = ''
+    },
+    addNews(ids) {
+      console.log(ids)
+      this.comment.push({
+        name: 'ttemp',
+        content: this.textarea2,
+        innerComment: []
+      })
     }
   }
 }

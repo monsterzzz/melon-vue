@@ -5,7 +5,7 @@ import Router from 'vue-router'  //引入vue-router
 import Login from '@/components/Login.vue'
 import Latest from '@/components/Latest.vue'
 import Event from '@/components/Event.vue'
-
+import Personal from '@/components/Personal.vue'
 
 
 Vue.use(Router)  //Vue全局使用Router
@@ -30,6 +30,11 @@ export default new Router({
       path: '/event',
       name: 'event',
       component: Event
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: Personal
     },
 
   ],
